@@ -1,0 +1,35 @@
+services:
+  
+  db:
+    container_name: odoo_db
+    image: postgres:15 
+    ports:
+      - 9000:5432
+    environment:
+      - POSTGRES_USER=odoo 
+      - POSTGRES_PASSWORD=odoo 
+      - POSTGRES_DB=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata 
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata  
+    restart: always
+
+  web:
+    container_name: odoo_web
+    image: odoo:19
+    depends_on:
+      - db
+    ports:
+      - 19000:8069
+    tty: true
+    command: -- --dev=reload,xml
+    volumes: 
+      - ./custom_addons:/mnt/custom_addons
+      - ./etc:/etc/odoo
+      - ./entrypoint.sh:/entrypoint.sh
+      - web-data:/var/lib/odoo      
+    restart: always
+
+volumes:
+  db-data:
+  web-data:

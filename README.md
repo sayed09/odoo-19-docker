@@ -1,0 +1,39 @@
+# Setup Docker for Odoo 19 with pgAdmin Access
+
+
+### Install docker:
+```
+$ sudo apt install docker.io
+$ sudo systemctl start docker
+$ sudo systemctl enable docker
+```
+
+### Install docker compose:
+```
+$ sudo apt remove docker docker-engine docker.io containerd runc
+$ sudo apt update
+$ sudo apt install ca-certificates curl gnupg lsb-release
+$ sudo mkdir -p /etc/apt/keyrings
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+$ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+$ sudo apt update
+$ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin
+$ docker-compose-plugin
+$ docker --version
+$ docker compose version
+```
+
+### Resolve permission issue:
+```
+$ sudo chmod +x entrypoint.sh
+```
+
+### Start the container from the root of this project:
+```
+$ docker-compose up  -d
+```
+
+Then locate `localhost:19000` to access Odoo 19.0.
+
+<img width="500px" src="https://github.com/Sayed09/odoo-19-docker/blob/main/screenshots/odoo-apps.png" alt="Odoo is working.">
+
